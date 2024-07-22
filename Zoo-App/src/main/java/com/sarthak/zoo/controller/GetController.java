@@ -1,36 +1,25 @@
-package com.sarthak.zoo.controller;
+	package com.sarthak.zoo.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.sarthak.zoo.entity.Animal;
-import com.sarthak.zoo.entity.User;
-import com.sarthak.zoo.service.AnimalService;
-import com.sarthak.zoo.service.UserService;
+import com.sarthak.zoo.entity.Zoo;
+import com.sarthak.zoo.service.ZooService;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+public class GetController {
+	
 	
 	@Autowired
-	private UserService userService;
+	private ZooService zooService;
 	
-	@Autowired
-	private AnimalService animalService;
-	
-	@GetMapping("/get")	
-	public List<User> getAllUsers()
+	@GetMapping("/getzoo")
+	public List<Zoo> getAllZoo()
 	{
-		return userService.getAllUsers();
+		return zooService.getAllZoo();
 	}
-	
-	@GetMapping("/animal")
-	public List<Animal> getAllAnimals()
-	{
-		return animalService.getAllAnimals();
-	}
+		
 }
+

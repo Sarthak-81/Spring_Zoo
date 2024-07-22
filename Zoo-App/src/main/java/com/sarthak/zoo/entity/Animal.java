@@ -1,21 +1,20 @@
 package com.sarthak.zoo.entity;
 
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.Date;
+import java.util.List;
+import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.sarthak.zoo.enums.Gender;
 import com.sarthak.zoo.enums.Species;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -30,27 +29,38 @@ public class Animal {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+	
+	@NotNull
+	@Column(nullable=false)
 	private String Name;
+	
+	@NotNull
+	@Column(nullable=false)
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
+	
+	@NotNull
+	@Column(nullable=false)
+	@Enumerated(EnumType.STRING)
 	private Species species;
+	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date Arrival_Date;
 	
-	@OneToOne
-		@JoinColumn(name = "entity_id")
-		private Archive archive;
+	private long zoo_id;
 	
+	// Mapping............
 	
-	@ManyToOne
-		@JoinColumn(name = "object_id")
-		private Photo photo;
+	@OneToOne(mappedBy = "animalArchive")
+	private Archive archive;
 	
-	@ManyToOne
-		@JoinColumn(name = "animal_id")
-		private Transfer_History history;
+	@OneToMany(mappedBy = "animalTransfer")
+	private List<Transfer> transferHistory;
 	
-	 @ManyToMany(mappedBy = "animals")
-	    private Set<Zoo> zoos = new HashSet<>();
+	@ManyToMany(mappedBy = "animals")
+	private List<Zoo> zoos;
 	
 }
+
+
 
