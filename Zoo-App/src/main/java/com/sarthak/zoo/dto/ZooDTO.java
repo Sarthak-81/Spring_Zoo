@@ -13,7 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ZooDTO {
-
+	
+	private Long id;
 	@NotEmpty
 	private String name;
 	@NotEmpty

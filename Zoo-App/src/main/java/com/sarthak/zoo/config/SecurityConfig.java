@@ -20,9 +20,11 @@ public class SecurityConfig
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/", "/login", "/getzoo", "/animal/add", "/zoo/add", "/zoo/delete/{id}", "/zoo/update/{id}", "archive/add").permitAll()
+                                .requestMatchers("/", "/login", "/getzoo", "/animal/add", "/zoo/add", "/zoo/delete/{id}", "/zoo/update/{id}", "archive/addanimal/{id}", 
+                                		"archive/addzoo/{id}", "history/add", "animal/addinzoo/{id}", "/history/add/{id}").permitAll()
                                 .anyRequest()
                                 .authenticated()
+                           
                 )
                 .csrf(csrf -> csrf.disable());
 	

@@ -1,11 +1,9 @@
-package com.sarthak.zoo.dto;
-
-import java.util.Date;
+	package com.sarthak.zoo.dto;
 
 import javax.validation.constraints.NotEmpty;
-
 import com.sarthak.zoo.entity.Animal;
 import com.sarthak.zoo.entity.Zoo;
+import com.sarthak.zoo.enums.Entity_Type;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,14 +12,22 @@ import lombok.Setter;
 @Setter
 public class ArchiveDTO {
 
+	private Long id;
 	@NotEmpty
-	private String entity_type;
-	@NotEmpty
-	private String name;
+	private Entity_Type entity_type;
+	
 	@NotEmpty
 	private String reason;
+	
 	@NotEmpty
-	private Date Archive_Date;
+	private String name;
+	
+	@NotEmpty
+	private Long zooId;
+	
+	@NotEmpty
+	private Long animalId;
+	
 	private Zoo zoo;
 	private Animal animalArchive;
 }

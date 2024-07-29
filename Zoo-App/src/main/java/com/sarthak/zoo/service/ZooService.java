@@ -42,12 +42,14 @@ public class ZooService {
 	@Transactional
 	public ZooDTO updateZoo(Long id, ZooDTO zooDTO)
 	{
-		Zoo zoo = zooRepo.findById(id).orElseThrow(() -> new RuntimeException("Zoo Not Found"));	
+		Zoo zoo = zooRepo.findById(id).orElseThrow(() -> new RuntimeException("Zoo Not Found"));			
 		zooMapper.updateZoo(zooDTO, zoo);
 		Zoo updatedZoo = zooRepo.save(zoo);
+		System.out.println(updatedZoo.getDescription());
+		System.out.println(updatedZoo.getPhone_no());
 		return zooMapper.zooToZooDTO(updatedZoo);
 	}
-// 
+
 	public void deleteZoo(Long id)
 	{
 		zooRepo.deleteById(id);

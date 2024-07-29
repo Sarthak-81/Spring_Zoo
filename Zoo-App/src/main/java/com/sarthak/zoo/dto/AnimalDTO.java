@@ -4,7 +4,6 @@ package com.sarthak.zoo.dto;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
-
 import com.sarthak.zoo.entity.Archive;
 import com.sarthak.zoo.entity.Transfer;
 import com.sarthak.zoo.entity.Zoo;
@@ -24,6 +23,8 @@ public class AnimalDTO {
 	private Gender gender;
 	@NotEmpty
 	private Species species;
+	@NotEmpty
+	private Long zooId;
 	private Archive archive;
 	private List<Zoo> zoos;
 	private List<Transfer> transferHistory;

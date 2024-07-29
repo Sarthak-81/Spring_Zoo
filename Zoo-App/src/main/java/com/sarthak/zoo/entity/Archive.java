@@ -1,8 +1,6 @@
 package com.sarthak.zoo.entity;
 
 import java.time.LocalDate;
-
-import javax.validation.constraints.NotNull;
 import com.sarthak.zoo.enums.Entity_Type;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,35 +23,35 @@ public class Archive {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "reason", nullable=false)
 	private String Reason;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "archive_date", nullable=false)
 	private LocalDate Archive_Date;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "entity_type", nullable=false)
 	@Enumerated(EnumType.STRING)
 	private Entity_Type entity_type;
 	
-	private long entity_id;
+	@Column(name = "animal_id", insertable=false, updatable=false)
+	private Long animal_id;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "zoo_id", insertable=false, updatable=false)
+	private Long zoo_id;
+	
+	@Column(name = "name", nullable=false)
 	private String name;
 	
 	// Mapping..........
 	
 	@OneToOne
-	@JoinColumn(name="zoo_id")
+	@JoinColumn(name="zoo_id", referencedColumnName = "id")
 	private Zoo zoo;
 	
 	@OneToOne
-	@JoinColumn(name="animal_id")
+	@JoinColumn(name="animal_id", referencedColumnName = "id")
 	private Animal animalArchive;
 	
 	public Archive()

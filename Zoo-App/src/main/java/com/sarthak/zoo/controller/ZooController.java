@@ -29,21 +29,19 @@ public class ZooController {
 		return ResponseEntity.ok(newZoo);		
 	}
 	
-	@DeleteMapping("/delete/{id}")
-	public void deleteZoo(@PathVariable Long id)
-	{
-		zooService.deleteZoo(id);
-	}
+//	@DeleteMapping("/delete/{id}")
+//	public void deleteZoo(@PathVariable Long id)
+//	{
+//		zooService.deleteZoo(id);
+//	}
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ZooDTO> editZoo(@PathVariable Long id, @Validated @RequestBody ZooDTO zooDTO)
 	{
 		ZooDTO editedZoo = zooService.updateZoo(id, zooDTO);
-		
 		return ResponseEntity.ok(editedZoo);
 	}
 	
 } 
-//
 
  

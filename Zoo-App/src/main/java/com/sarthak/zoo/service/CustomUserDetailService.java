@@ -1,5 +1,7 @@
 package com.sarthak.zoo.service;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,12 +21,12 @@ public class CustomUserDetailService implements UserDetailsService
 	    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 	        User user = userRepo.findByName(name);
 	        if (user == null) {
-	            throw new UsernameNotFoundException("User not found");
+	            throw new UsernameNotFoundException("User not found " + name);
 	        }
-	        return org.springframework.security.core.userdetails.User.builder()
-	            .username(user.getName())
-	            .password("{noop}" + user.getPassword())
-	            .roles(user.getRole())
-	            .build();
+	        return new org.springframework.security.core.userdetails.User(
+	        		user.getName(),
+	        		user.getPassword(),
+	        		Collections.emptyList()
+	        		);		
 	    }
 }

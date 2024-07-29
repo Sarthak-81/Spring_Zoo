@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 import com.sarthak.zoo.dto.ZooDTO;
 import com.sarthak.zoo.entity.Zoo;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ZooMapper 
 {
 	ZooMapper INSTANCE = Mappers.getMapper(ZooMapper.class);	
@@ -21,9 +21,6 @@ public interface ZooMapper
 	Zoo ZooDTOToZoo(ZooDTO zooDTO);
 	
 	
-	//for edit zoo details
-	@Mapping(target = "name", ignore = true)
-	@Mapping(target = "location", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	void updateZoo(ZooDTO zooDTO, @MappingTarget Zoo zoo);
 	

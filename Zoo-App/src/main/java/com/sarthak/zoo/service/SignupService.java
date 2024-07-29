@@ -15,7 +15,7 @@ public class SignupService {
 	private UserRepository userRepository;
 	
 	public User saveUser(SignupRequest signupRequest) {
-        
+
         user.setName(signupRequest.getName());
         user.setEmail(signupRequest.getEmail());
         user.setPassword(signupRequest.getPassword());

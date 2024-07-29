@@ -1,19 +1,23 @@
 package com.sarthak.zoo.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 import com.sarthak.zoo.enums.Gender;
 import com.sarthak.zoo.enums.Species;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -30,37 +34,42 @@ public class Animal {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "name", nullable=false)
 	private String Name;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "gender",nullable=false)
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	
-	@NotNull
-	@Column(nullable=false)
+	@Column(name = "species", nullable=false)
 	@Enumerated(EnumType.STRING)
 	private Species species;
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private Date Arrival_Date;
+	@Column(name = "arrival_date", nullable=false)
+	private LocalDate Arrival_Date;
 	
-	private long zoo_id;
+	@Column(name = "zoo_id", insertable = false, updatable=false)
+	private Long zoo_id;
 	
-	// Mapping............
+	public Animal()
+	{
+		this.Arrival_Date = LocalDate.now();
+	}
 	
+	// Mapping between Archive and Animal
 	@OneToOne(mappedBy = "animalArchive")
 	private Archive archive;
 	
-	@OneToMany(mappedBy = "animalTransfer")
-	private List<Transfer> transferHistory;
+	// Mapping between Transfer and Animal
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "animalTransfer")
+	private List<Transfer> transfers;
 	
-	@ManyToMany(mappedBy = "animals")
-	private List<Zoo> zoos;
+    // Mapping between Animal and Zoo
+	@ManyToOne
+	@JoinColumn(name="zoo_id", nullable=false)
+	private Zoo zoo;
 	
 }
-
 
 
